@@ -10,7 +10,7 @@ namespace DevStore.ShoppingCart.API.Model
         public Guid Id { get; set; }
         public Guid CustomerId { get; set; }
         public decimal Total { get; set; }
-        public List<CartItem> Items { get; set; } = new List<CartItem>();
+        public List<CartItem> Items { get; set; } = [];
         public ValidationResult ValidationResult { get; set; }
 
         public bool HasVoucher { get; set; }

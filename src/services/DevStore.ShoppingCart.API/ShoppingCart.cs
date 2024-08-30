@@ -5,18 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevStore.ShoppingCart.API
 {
-    public class ShoppingCart
+    public class ShoppingCart(ShoppingCartContext context, IAspNetUser user)
     {
-        private readonly ShoppingCartContext _context;
-        private readonly IAspNetUser _user;
-
-        private ICollection<string> _errors = new List<string>();
-
-        public ShoppingCart(ShoppingCartContext context, IAspNetUser user)
-        {
-            _context = context;
-            _user = user;
-        }
+        private readonly ICollection<string> _errors = [];
 
         public async Task<CustomerShoppingCart> GetShoppingCart()
         {
@@ -32,7 +23,7 @@ namespace DevStore.ShoppingCart.API
             else
                 ManageCart(shoppingCart, item);
 
-            if (_errors.Any()) return CustomResponse();
+            if (_errors.Count != 0) return CustomResponse();
 
             await Persist();
             return CustomResponse();
@@ -47,10 +38,10 @@ namespace DevStore.ShoppingCart.API
             shoppingCart.UpdateUnit(shoppingCartItem, item.Quantity);
 
             ValidateShoppingCart(shoppingCart);
-            if (_errors.Any()) return CustomResponse();
+            if (_errors.Count != 0) return CustomResponse();
 
-            _context.CartItems.Update(shoppingCartItem);
-            _context.CustomerShoppingCart.Update(shoppingCart);
+            context.CartItems.Update(shoppingCartItem);
+            context.CustomerShoppingCart.Update(shoppingCart);
 
             await Persist();
             return CustomResponse();
@@ -64,12 +55,12 @@ namespace DevStore.ShoppingCart.API
             if (item == null) return CustomResponse();
 
             ValidateShoppingCart(cart);
-            if (_errors.Any()) return CustomResponse();
+            if (_errors.Count != 0) return CustomResponse();
 
             cart.RemoveItem(item);
 
-            _context.CartItems.Remove(item);
-            _context.CustomerShoppingCart.Update(cart);
+            context.CartItems.Remove(item);
+            context.CustomerShoppingCart.Update(cart);
 
             await Persist();
             return CustomResponse();
@@ -81,7 +72,7 @@ namespace DevStore.ShoppingCart.API
 
             cart.ApplyVoucher(voucher);
 
-            _context.CustomerShoppingCart.Update(cart);
+            context.CustomerShoppingCart.Update(cart);
 
             await Persist();
             return CustomResponse();
@@ -90,18 +81,18 @@ namespace DevStore.ShoppingCart.API
 
         async Task<CustomerShoppingCart> GetShoppingCartClient()
         {
-            return await _context.CustomerShoppingCart
+            return await context.CustomerShoppingCart
                 .Include(c => c.Items)
-                .FirstOrDefaultAsync(c => c.CustomerId == _user.GetUserId());
+                .FirstOrDefaultAsync(c => c.CustomerId == user.GetUserId());
         }
 
         void ManageNewCart(CartItem item)
         {
-            var cart = new CustomerShoppingCart(_user.GetUserId());
+            var cart = new CustomerShoppingCart(user.GetUserId());
             cart.AddItem(item);
 
             ValidateShoppingCart(cart);
-            _context.CustomerShoppingCart.Add(cart);
+            context.CustomerShoppingCart.Add(cart);
         }
 
         void ManageCart(CustomerShoppingCart cart, CartItem item)
@@ -113,14 +104,14 @@ namespace DevStore.ShoppingCart.API
 
             if (savedItem)
             {
-                _context.CartItems.Update(cart.GetProductById(item.ProductId));
+                context.CartItems.Update(cart.GetProductById(item.ProductId));
             }
             else
             {
-                _context.CartItems.Add(item);
+                context.CartItems.Add(item);
             }
 
-            _context.CustomerShoppingCart.Update(cart);
+            context.CustomerShoppingCart.Update(cart);
         }
 
         async Task<CartItem> GetValidItem(Guid productId, CustomerShoppingCart cart, CartItem item = null)
@@ -137,7 +128,7 @@ namespace DevStore.ShoppingCart.API
                 return null;
             }
 
-            var cartItem = await _context.CartItems
+            var cartItem = await context.CartItems
                 .FirstOrDefaultAsync(i => i.ShoppingCartId == cart.Id && i.ProductId == productId);
 
             if (cartItem == null || !cart.HasItem(cartItem))
@@ -151,7 +142,7 @@ namespace DevStore.ShoppingCart.API
 
         async Task Persist()
         {
-            var result = await _context.SaveChangesAsync();
+            var result = await context.SaveChangesAsync();
             if (result <= 0) AddErrorToStack("Error saving data");
         }
 
@@ -170,7 +161,7 @@ namespace DevStore.ShoppingCart.API
 
         IResult CustomResponse(object result = null)
         {
-            if (!_errors.Any())
+            if (_errors.Count == 0)
             {
                 return Results.Ok(result);
             }

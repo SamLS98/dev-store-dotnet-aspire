@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using DevStore.Core.Exceptions;
+﻿using DevStore.Core.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 
 namespace DevStore.WebAPI.Core.Configuration
 {
@@ -52,7 +52,7 @@ namespace DevStore.WebAPI.Core.Configuration
                 context.Database.GetAppliedMigrations();   // Check the database connection
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

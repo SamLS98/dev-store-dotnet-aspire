@@ -5,24 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevStore.ShoppingCart.API.Services
 {
-    public class ShoppingCartIntegrationHandler : BackgroundService
+    public class ShoppingCartIntegrationHandler(IServiceProvider serviceProvider, IMessageBus bus) : BackgroundService
     {
-        private readonly IMessageBus _bus;
-        private readonly IServiceProvider _serviceProvider;
-
-        public ShoppingCartIntegrationHandler(IServiceProvider serviceProvider, IMessageBus bus)
-        {
-            _serviceProvider = serviceProvider;
-            _bus = bus;
-        }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _bus.SubscribeAsync<OrderDoneIntegrationEvent>("OrderDone", RemoveShoppingCart);
+            await bus.SubscribeAsync<OrderDoneIntegrationEvent>("OrderDone", RemoveShoppingCart);
         }
 
         private async Task RemoveShoppingCart(OrderDoneIntegrationEvent message)
         {
-            using var scope = _serviceProvider.CreateScope();
+            using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<ShoppingCartContext>();
 
             var shoppingCart = await context.CustomerShoppingCart

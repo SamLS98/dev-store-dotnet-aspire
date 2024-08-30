@@ -10,7 +10,7 @@ namespace DevStore.ShoppingCart.API.Configuration
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAspNetUser, AspNetUser>();
             services.AddScoped<ShoppingCartContext>();
-            services.AddScoped<ShoppingCart>();            
+            services.AddScoped<ShoppingCart>();
         }
     }
 }

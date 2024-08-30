@@ -23,7 +23,7 @@ namespace DevStore.WebAPI.Core.Configuration
             var (database, connString) = DetectDatabase(configuration);
             var checkBuilder = services
                 .AddHealthChecks()
-                .AddCheck("self", () => HealthCheckResult.Healthy(), tags: new[] { "api" });
+                .AddCheck("self", () => HealthCheckResult.Healthy(), tags: ["api"]);
 
             var rabbitConnStr = configuration.GetMessageQueueConnection("MessageBus");
 
@@ -35,15 +35,15 @@ namespace DevStore.WebAPI.Core.Configuration
 
             return database switch
             {
-                DatabaseType.SqlServer => checkBuilder.AddSqlServer(connString, name: "SqlServer", tags: new[] { "infra" }),
-                DatabaseType.MySql => checkBuilder.AddMySql(connString, name: "MySql", tags: new[] { "infra" }),
-                DatabaseType.Postgre => checkBuilder.AddNpgSql(connString, name: "Postgre", tags: new[] { "infra" }),
-                DatabaseType.Sqlite => checkBuilder.AddSqlite(connString, name: "Sqlite", tags: new[] { "infra" }),
+                DatabaseType.SqlServer => checkBuilder.AddSqlServer(connString, name: "SqlServer", tags: ["infra"]),
+                DatabaseType.MySql => checkBuilder.AddMySql(connString, name: "MySql", tags: ["infra"]),
+                DatabaseType.Postgre => checkBuilder.AddNpgSql(connString, name: "Postgre", tags: ["infra"]),
+                DatabaseType.Sqlite => checkBuilder.AddSqlite(connString, name: "Sqlite", tags: ["infra"]),
                 _ => checkBuilder
             };
         }
 
-        private static IConnectionFactory CreateConnectionFactory(ConnectionConfiguration configuration)
+        private static ConnectionFactory CreateConnectionFactory(ConnectionConfiguration configuration)
         {
             var connectionFactory = new ConnectionFactory
             {

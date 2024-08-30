@@ -1,6 +1,6 @@
 using DevStore.WebAPI.Core.DatabaseFlavor;
-using Serilog;
 using DevStore.WebAPI.Core.Extensions;
+using Serilog;
 using static DevStore.WebAPI.Core.DatabaseFlavor.ProviderConfiguration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +12,7 @@ builder.Logging.AddSerilog(new LoggerConfiguration()
 var healthCheckBuilder = builder.Services.AddHealthChecksUI(setupSettings: setup =>
 {
     setup.SetHeaderText("DevStore - Status Page");
-    var endpoints = builder.Configuration.GetSection("ENDPOINTS").Get<string>();
+    string endpoints = builder.Configuration.GetSection("ENDPOINTS").Get<string>()!;
 
     foreach (var endpoint in endpoints.Split(";"))
     {

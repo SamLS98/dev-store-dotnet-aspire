@@ -1,12 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using DevStore.Billing.API.Data;
+﻿using DevStore.Billing.API.Data;
 using DevStore.WebAPI.Core.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Threading.Tasks;
 
 namespace DevStore.Billing.API.Configuration
 {

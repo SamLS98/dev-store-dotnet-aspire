@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using static DevStore.WebAPI.Core.DatabaseFlavor.ProviderConfiguration;
 
 namespace DevStore.WebAPI.Core.DatabaseFlavor
@@ -19,7 +19,7 @@ namespace DevStore.WebAPI.Core.DatabaseFlavor
                 DatabaseType.Postgre => services.PersistStore<TContext>(Build(connString).With().Postgre),
                 DatabaseType.Sqlite => services.PersistStore<TContext>(Build(connString).With().Sqlite),
 
-                _ => throw new ArgumentOutOfRangeException(nameof(database), database, null)
+                _ => throw new NotImplementedException(nameof(database))
             };
         }
 
@@ -33,9 +33,9 @@ namespace DevStore.WebAPI.Core.DatabaseFlavor
                 DatabaseType.Postgre => Build(connString).With().Postgre,
                 DatabaseType.Sqlite => Build(connString).With().Sqlite,
 
-                _ => throw new ArgumentOutOfRangeException(nameof(database), database, null)
+                _ => throw new NotImplementedException(nameof(database))
             };
         }
-        
+
     }
 }

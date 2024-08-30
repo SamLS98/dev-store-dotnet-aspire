@@ -1,32 +1,20 @@
 ﻿using DevStore.ShoppingCart.API.Model;
+using DevStore.WebAPI.Core.User;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using DevStore.WebAPI.Core.User;
 
 namespace DevStore.ShoppingCart.API.Services.gRPC
 {
     [Authorize]
-    public class ShoppingCartGrpcService : ShoppingCartOrders.ShoppingCartOrdersBase
+    public class ShoppingCartGrpcService(
+        ILogger<ShoppingCartGrpcService> logger,
+        IAspNetUser user,
+        Data.ShoppingCartContext context) : ShoppingCartOrders.ShoppingCartOrdersBase
     {
-        private readonly ILogger<ShoppingCartGrpcService> _logger;
-
-        private readonly IAspNetUser _user;
-        private readonly Data.ShoppingCartContext _context;
-
-        public ShoppingCartGrpcService(
-            ILogger<ShoppingCartGrpcService> logger,
-            IAspNetUser user,
-            Data.ShoppingCartContext context)
-        {
-            _logger = logger;
-            _user = user;
-            _context = context;
-        }
-
         public override async Task<CustomerShoppingCartClientResponse> GetShoppingCart(GetShoppingCartRequest request, ServerCallContext context)
         {
-            _logger.LogInformation("Call GetCart");
+            logger.LogInformation("Call GetCart");
 
             var shoppingCart = await GetShoppingCartClient() ?? new CustomerShoppingCart();
 
@@ -35,9 +23,9 @@ namespace DevStore.ShoppingCart.API.Services.gRPC
 
         private async Task<CustomerShoppingCart> GetShoppingCartClient()
         {
-            return await _context.CustomerShoppingCart
+            return await context.CustomerShoppingCart
                 .Include(c => c.Items)
-                .FirstOrDefaultAsync(c => c.CustomerId == _user.GetUserId());
+                .FirstOrDefaultAsync(c => c.CustomerId == user.GetUserId());
         }
 
         private static CustomerShoppingCartClientResponse MapShoppingCartClientToProtoResponse(CustomerShoppingCart shoppingCart)

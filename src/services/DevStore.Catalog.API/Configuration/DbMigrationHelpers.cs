@@ -1,13 +1,13 @@
 ﻿using DevStore.Catalog.API.Data;
 using DevStore.Catalog.API.Models;
 using DevStore.WebAPI.Core.Configuration;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
 
 namespace DevStore.Catalog.API.Configuration
 {

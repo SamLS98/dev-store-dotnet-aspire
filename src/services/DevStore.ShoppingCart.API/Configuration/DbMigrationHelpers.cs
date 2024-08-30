@@ -1,6 +1,5 @@
 ﻿using DevStore.ShoppingCart.API.Data;
 using DevStore.WebAPI.Core.Configuration;
-using Microsoft.EntityFrameworkCore;
 
 namespace DevStore.ShoppingCart.API.Configuration
 {

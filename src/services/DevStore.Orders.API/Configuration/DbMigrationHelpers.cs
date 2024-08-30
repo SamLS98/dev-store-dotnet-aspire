@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using DevStore.Orders.Domain.Vouchers;
+﻿using DevStore.Orders.Domain.Vouchers;
 using DevStore.Orders.Infra.Context;
 using DevStore.WebAPI.Core.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DevStore.Orders.API.Configuration
 {
@@ -37,7 +36,7 @@ namespace DevStore.Orders.API.Configuration
 
             if (env.IsDevelopment() || env.IsEnvironment("Docker"))
                 await ssoContext.Database.EnsureCreatedAsync();
-                await EnsureSeedVouchers(ssoContext);
+            await EnsureSeedVouchers(ssoContext);
         }
 
         private static async Task EnsureSeedVouchers(OrdersContext context)
@@ -45,8 +44,8 @@ namespace DevStore.Orders.API.Configuration
             if (context.Vouchers.Any())
                 return;
 
-            await context.Vouchers.AddAsync(new Voucher("30-OFF",30,0,5000,VoucherDiscountType.Percentage, DateTime.Now.AddYears(5)));
-            await context.Vouchers.AddAsync(new Voucher("50-OFF",0,50,5000, VoucherDiscountType.Value, DateTime.Now.AddYears(5)));
+            await context.Vouchers.AddAsync(new Voucher("30-OFF", 30, 0, 5000, VoucherDiscountType.Percentage, DateTime.Now.AddYears(5)));
+            await context.Vouchers.AddAsync(new Voucher("50-OFF", 0, 50, 5000, VoucherDiscountType.Value, DateTime.Now.AddYears(5)));
 
             await context.SaveChangesAsync();
         }

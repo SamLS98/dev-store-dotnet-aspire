@@ -14,18 +14,21 @@ public static class EasyNetQRabbitHealthCheck
         var easyNetQConnstringParser = new ConnectionStringParser();
         var connectionConfiguration = easyNetQConnstringParser.Parse(connectionString);
         var connRabbit = CreateConnectionFactory(connectionConfiguration);
-        var rabbitHealthCheck = new RabbitMQHealthCheck(connRabbit);
+        var rabbitHealthCheck = new RabbitMQHealthCheck(new()
+        {
+            ConnectionFactory = connRabbit
+        });
         healthChecksBuilder.Services.AddSingleton(sp => rabbitHealthCheck);
 
         return healthChecksBuilder.Add(new HealthCheckRegistration(
             "RabbitMQ",
             sp => sp.GetRequiredService<RabbitMQHealthCheck>(),
             default,
-            tags: new[] { "infra" },
+            tags: ["infra"],
             default));
     }
 
-    private static IConnectionFactory CreateConnectionFactory(ConnectionConfiguration configuration)
+    private static ConnectionFactory CreateConnectionFactory(ConnectionConfiguration configuration)
     {
         var connectionFactory = new ConnectionFactory
         {

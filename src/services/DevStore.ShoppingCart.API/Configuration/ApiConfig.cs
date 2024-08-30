@@ -1,8 +1,8 @@
-﻿using DevStore.ShoppingCart.API.Services.gRPC;
+﻿using DevStore.ShoppingCart.API.Data;
+using DevStore.ShoppingCart.API.Services.gRPC;
+using DevStore.WebAPI.Core.Configuration;
 using DevStore.WebAPI.Core.DatabaseFlavor;
 using static DevStore.WebAPI.Core.DatabaseFlavor.ProviderConfiguration;
-using DevStore.ShoppingCart.API.Data;
-using DevStore.WebAPI.Core.Configuration;
 
 namespace DevStore.ShoppingCart.API.Configuration
 {

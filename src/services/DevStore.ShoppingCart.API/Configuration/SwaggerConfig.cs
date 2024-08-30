@@ -39,7 +39,7 @@ namespace DevStore.ShoppingCart.API.Configuration
                                 Id = "Bearer"
                             }
                         },
-                        new string[] {}
+                        Array.Empty<string>()
                     }
                 });
 
