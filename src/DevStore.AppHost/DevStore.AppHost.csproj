@@ -24,6 +24,7 @@
     <ProjectReference Include="..\services\DevStore.Orders.API\DevStore.Orders.API.csproj" />
     <ProjectReference Include="..\services\DevStore.ShoppingCart.API\DevStore.ShoppingCart.API.csproj" />
     <ProjectReference Include="..\web\DevStore.WebApp.MVC\DevStore.WebApp.MVC.csproj" />
+    <ProjectReference Include="..\web\DevStore.WebApp.Status\DevStore.WebApp.Status.csproj" />
   </ItemGroup>
 
 </Project>

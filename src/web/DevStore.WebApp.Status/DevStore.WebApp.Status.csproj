@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\building-blocks\DevStore.WebAPI.Core\DevStore.WebAPI.Core.csproj" />
+    <ProjectReference Include="..\..\DevStore.ServiceDefaults\DevStore.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>

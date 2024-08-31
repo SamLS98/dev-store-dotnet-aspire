@@ -5,6 +5,8 @@ using static DevStore.WebAPI.Core.DatabaseFlavor.ProviderConfiguration;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Logging.AddSerilog(new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger());
@@ -24,31 +26,12 @@ var healthCheckBuilder = builder.Services.AddHealthChecksUI(setupSettings: setup
 
     setup.UseApiEndpointHttpMessageHandler(sp => HttpExtensions.ConfigureClientHandler());
 });
-var (database, connString) = DetectDatabase(builder.Configuration);
 
-switch (database)
-{
-    case DatabaseType.None:
-        healthCheckBuilder.AddInMemoryStorage();
-        break;
-    case DatabaseType.SqlServer:
-        healthCheckBuilder.AddSqlServerStorage(connString);
-        break;
-    case DatabaseType.MySql:
-        healthCheckBuilder.AddMySqlStorage(connString);
-        break;
-    case DatabaseType.Postgre:
-        healthCheckBuilder.AddPostgreSqlStorage(connString);
-        break;
-    case DatabaseType.Sqlite:
-        healthCheckBuilder.AddSqliteStorage(connString);
-        break;
-    default:
-        healthCheckBuilder.AddInMemoryStorage();
-        break;
-}
+healthCheckBuilder.AddInMemoryStorage();
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Under certain scenarios, e.g minikube / linux environment / behind load balancer
 // https redirection could lead dev's to over complicated configuration for testing purpouses

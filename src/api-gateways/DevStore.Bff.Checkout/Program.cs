@@ -17,15 +17,6 @@ builder.Logging.AddSerilog(new LoggerConfiguration()
 
 #region Configure Services
 
-builder.Services.AddSingleton(new AppServicesSettings
-{
-    CatalogUrl = "https://catalog",
-    ShoppingCartUrl = "https://shoppingCart",
-    OrderUrl = "https://orders",
-    PaymentUrl = "https://billing",
-    CustomerUrl = "https://customers",
-});
-
 builder.Services.AddApiConfiguration(builder.Configuration);
 
 builder.Services.AddJwtConfiguration(builder.Configuration);

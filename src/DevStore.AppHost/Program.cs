@@ -34,13 +34,29 @@ var shoppingCart = builder.AddProject<Projects.DevStore_ShoppingCart_API>("shopp
     .WithReference(databaseShoppingcart)
     .WithReference(messaging);
 
-var checkout = builder.AddProject<Projects.DevStore_Bff_Checkout>("bff-checkout")
+var checkout = builder.AddProject<Projects.DevStore_Bff_Checkout>("checkout")
     .WithReference(catalog)
     .WithReference(shoppingCart)
     .WithReference(orders)
     .WithReference(billing)
-    .WithReference(customers);
+    .WithReference(customers)
+    .WithReference(identity);
 
-//builder.AddProject<Projects.DevStore_WebApp_MVC>("webapp-mvc");
+var webapp = builder.AddProject<Projects.DevStore_WebApp_MVC>("webapp")
+    .WithReference(identity)
+    .WithReference(catalog)
+    .WithReference(customers)
+    .WithReference(checkout);
+
+//var databaseDSStatus = mssql.AddDatabase("DSStatus", "DSStatus");
+//builder.AddProject<Projects.DevStore_WebApp_Status>("devstore-webapp-status")
+//    .WithReference(checkout)
+//    .WithReference(catalog)
+//    .WithReference(shoppingCart)
+//    .WithReference(orders)
+//    .WithReference(billing)
+//    .WithReference(customers)
+//    .WithReference(webapp)
+//    .WithReference(identity);
 
 builder.Build().Run();
