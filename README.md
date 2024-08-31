@@ -29,6 +29,7 @@ Check this online courses at [desenvolvedor.io](https://desenvolvedor.io) (only 
 ## Technologies / Components implemented
 
 - .NET 8
+    - .NET Aspire 
     - ASP.NET MVC Core
     - ASP.NET WebApi
     - ASP.NET Minimal API
@@ -125,30 +126,16 @@ docker-compose -f docker-compose-local-light.yml up --build
 ```
 ---
 
-### If you want run locally using Visual Studio and .NET Aspire:
-
-You will need:
-- Docker
-
-Set **DevStore.AppHost** as the starting project. Press F5 o run
-
 ### If you want run locally with VS/VS Code:
 
 You will need:
-
 - Docker
-- SQL instance (or container)
-- RabbitMQ
-
-So you can edit the Docker compose to just run the database and queue dependencies and save your time.
 
 ### If you want Visual Studio with F5 and debug experience:
 
 - You will need at least Visual Studio 2022 and .NET 8.
 - The latest SDK and tools can be downloaded from https://dot.net/core
-- Setup the solution to start multiple projects and hit F5
- 
-![image](https://user-images.githubusercontent.com/5068797/161358024-bd5754b6-61e3-47f2-bd17-bd3c32ec4bdd.png)
+- Set **DevStore.AppHost** as the starting project and hit F5
 
 ---
 
