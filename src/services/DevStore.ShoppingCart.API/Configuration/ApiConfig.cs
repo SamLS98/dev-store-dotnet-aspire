@@ -10,8 +10,6 @@ namespace DevStore.ShoppingCart.API.Configuration
     {
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.ConfigureProviderForContext<ShoppingCartContext>(DetectDatabase(configuration));
-
             services.AddGrpc();
 
             services.AddCors(options =>
@@ -24,7 +22,7 @@ namespace DevStore.ShoppingCart.API.Configuration
                             .AllowAnyHeader());
             });
 
-            services.AddDefaultHealthCheck(configuration);
+            
         }
 
         public static void UseApiConfiguration(this WebApplication app, IWebHostEnvironment env)
@@ -47,7 +45,7 @@ namespace DevStore.ShoppingCart.API.Configuration
 
             app.MapGrpcService<ShoppingCartGrpcService>().RequireCors("Total");
 
-            app.UseDefaultHealthcheck();
+            app.MapDefaultEndpoints();
         }
     }
 }

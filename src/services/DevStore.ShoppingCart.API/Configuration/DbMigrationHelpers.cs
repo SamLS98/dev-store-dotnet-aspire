@@ -1,5 +1,6 @@
 ﻿using DevStore.ShoppingCart.API.Data;
 using DevStore.WebAPI.Core.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevStore.ShoppingCart.API.Configuration
 {
@@ -26,7 +27,7 @@ namespace DevStore.ShoppingCart.API.Configuration
             await DbHealthChecker.TestConnection(ssoContext);
 
             if (env.IsDevelopment() || env.IsEnvironment("Docker"))
-                await ssoContext.Database.EnsureCreatedAsync();
+                 await ssoContext.Database.MigrateAsync();
 
         }
     }

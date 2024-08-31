@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>61457b22-d058-40a1-b612-620c4c32eca9</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.0" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="8.2.0" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="8.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\api-gateways\DevStore.Bff.Checkout\DevStore.Bff.Checkout.csproj" />
+    <ProjectReference Include="..\services\DevStore.Billing.API\DevStore.Billing.API.csproj" />
+    <ProjectReference Include="..\services\DevStore.Catalog.API\DevStore.Catalog.API.csproj" />
+    <ProjectReference Include="..\services\DevStore.Customers.API\DevStore.Customers.API.csproj" />
+    <ProjectReference Include="..\services\DevStore.Identity.API\DevStore.Identity.API.csproj" />
+    <ProjectReference Include="..\services\DevStore.Orders.API\DevStore.Orders.API.csproj" />
+    <ProjectReference Include="..\services\DevStore.ShoppingCart.API\DevStore.ShoppingCart.API.csproj" />
+    <ProjectReference Include="..\web\DevStore.WebApp.MVC\DevStore.WebApp.MVC.csproj" />
+  </ItemGroup>
+
+</Project>

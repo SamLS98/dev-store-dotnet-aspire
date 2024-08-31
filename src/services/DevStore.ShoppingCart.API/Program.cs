@@ -1,5 +1,6 @@
 using DevStore.ShoppingCart.API;
 using DevStore.ShoppingCart.API.Configuration;
+using DevStore.ShoppingCart.API.Data;
 using DevStore.ShoppingCart.API.Model;
 using DevStore.WebAPI.Core.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -10,9 +11,13 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Logging.AddSerilog(new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger());
+
+builder.AddSqlServerDbContext<ShoppingCartContext>("DSShoppingCart");
 
 #endregion
 
@@ -26,7 +31,7 @@ builder.Services.AddSwaggerConfiguration();
 
 builder.Services.RegisterServices();
 
-builder.Services.AddMessageBusConfiguration(builder.Configuration);
+builder.Services.AddMessageBusConfiguration(Environment.GetEnvironmentVariable("ConnectionStrings__messaging"));
 
 var app = builder.Build();
 

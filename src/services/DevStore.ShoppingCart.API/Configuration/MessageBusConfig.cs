@@ -6,10 +6,9 @@ namespace DevStore.ShoppingCart.API.Configuration
 {
     public static class MessageBusConfig
     {
-        public static void AddMessageBusConfiguration(this IServiceCollection services,
-            IConfiguration configuration)
+        public static void AddMessageBusConfiguration(this IServiceCollection services, string connection)
         {
-            services.AddMessageBus(configuration.GetMessageQueueConnection("MessageBus"))
+            services.AddMessageBus(connection)
                 .AddHostedService<ShoppingCartIntegrationHandler>();
         }
     }

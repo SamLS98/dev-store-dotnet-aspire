@@ -9,16 +9,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="8.2.0" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.65.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
-    <PackageReference Include="Serilog.Sinks.Seq" Version="8.0.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
+		<PackageReference Include="Serilog.Sinks.Seq" Version="8.0.0" />
+		<PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\building-blocks\DevStore.MessageBus\DevStore.MessageBus.csproj" />
 		<ProjectReference Include="..\..\building-blocks\DevStore.WebAPI.Core\DevStore.WebAPI.Core.csproj" />
+		<ProjectReference Include="..\..\DevStore.ServiceDefaults\DevStore.ServiceDefaults.csproj" />
 	</ItemGroup>
 
 

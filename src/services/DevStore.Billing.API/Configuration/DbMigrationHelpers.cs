@@ -2,6 +2,7 @@
 using DevStore.WebAPI.Core.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -32,7 +33,7 @@ namespace DevStore.Billing.API.Configuration
             await DbHealthChecker.TestConnection(ssoContext);
 
             if (env.IsDevelopment() || env.IsEnvironment("Docker"))
-                await ssoContext.Database.EnsureCreatedAsync();
+                 await ssoContext.Database.MigrateAsync();
 
         }
 
