@@ -3,7 +3,7 @@
     <img alt="logo" src="https://user-images.githubusercontent.com/5068797/161364257-0c1d81f6-62ac-4192-93f8-836b4ce0fd06.png#gh-dark-mode-only" />
 </p>
 
-# DevStore - A microservices e-commerce reference application built with ASP.NET 6
+# DevStore - A microservices e-commerce reference application built with ASP.NET 8
 
 A real-world reference application powered by [desenvolvedor.io](https://desenvolvedor.io/) <img alt="Brasil" src="https://user-images.githubusercontent.com/5068797/161345649-c7184fdc-2bc3-42a9-8fb6-6ffee9c8f9c2.png" width="20" height="14" /> implementing the most common and used technologies to share with the technical community the best way to develop full and complex applications with .NET
 
@@ -28,7 +28,7 @@ Check this online courses at [desenvolvedor.io](https://desenvolvedor.io) (only 
 
 ## Technologies / Components implemented
 
-- .NET 6
+- .NET 8
     - ASP.NET MVC Core
     - ASP.NET WebApi
     - ASP.NET Minimal API
@@ -37,7 +37,7 @@ Check this online courses at [desenvolvedor.io](https://desenvolvedor.io) (only 
     - JWT with rotactive public / private key    
     - GRPC
     - Background Services
-    - Entity Framework Core 6
+    - Entity Framework Core 8
 
 - Components / Services
     - RabbitMQ
@@ -125,6 +125,13 @@ docker-compose -f docker-compose-local-light.yml up --build
 ```
 ---
 
+### If you want run locally using Visual Studio and .NET Aspire:
+
+You will need:
+- Docker
+
+Set **DevStore.AppHost** as the starting project. Press F5 o run
+
 ### If you want run locally with VS/VS Code:
 
 You will need:
@@ -137,7 +144,7 @@ So you can edit the Docker compose to just run the database and queue dependenci
 
 ### If you want Visual Studio with F5 and debug experience:
 
-- You will need at least Visual Studio 2022 and .NET 6.
+- You will need at least Visual Studio 2022 and .NET 8.
 - The latest SDK and tools can be downloaded from https://dot.net/core
 - Setup the solution to start multiple projects and hit F5
  
